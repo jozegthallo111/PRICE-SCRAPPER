@@ -1,0 +1,36 @@
+name: Scrape Prices
+
+on:
+  workflow_dispatch:  # manual run button in GitHub
+
+jobs:
+  scrape:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Install Chromium and dependencies
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y chromium-driver chromium unzip curl
+
+      - name: Install dependencies
+        run: pip install -r requirements.txt
+
+      - name: Run scraper
+        run: python scrape.py
+
+      - name: Upload CSV and ZIP as artifacts
+        uses: actions/upload-artifact@v3
+        with:
+          name: scraped-data
+          path: |
+            allcorectpricees.csv
+            allcorectpricees.zip
