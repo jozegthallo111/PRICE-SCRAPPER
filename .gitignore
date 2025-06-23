@@ -1,0 +1,11 @@
+# Ignore Python cache
+__pycache__/
+*.pyc
+
+# Ignore output files
+allcorectpricees.csv
+allcorectpricees.zip
+
+# Ignore local environment configs
+.env
+.DS_Store
